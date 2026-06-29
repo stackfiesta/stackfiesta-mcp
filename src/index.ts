@@ -19,10 +19,23 @@ interface ToolSummary {
   stars_count: number;
 }
 
+interface SearchResponse {
+  tools: ToolSummary[];
+  total: number;
+  page: number;
+  pageSize: number;
+  facets: {
+    types: Record<string, number>;
+    pricing: Record<string, number>;
+    engines: Record<string, number>;
+    categories: Record<string, number>;
+  };
+}
+
 interface ToolDetail {
   title: string;
   summary: string;
-  description: string;
+  description: string | null;
   pricing: string;
   pricing_tiers: unknown;
   use_cases: string[];
@@ -31,11 +44,11 @@ interface ToolDetail {
   integrations: string[];
   hook_facts: unknown;
   links: {
-    website?: string;
-    github?: string;
-    docs?: string;
-    npm?: string;
-    discord?: string;
+    website: string | null;
+    github: string | null;
+    docs: string | null;
+    npm: string | null;
+    discord: string | null;
   };
   tag_slugs: string[];
   category_slugs: string[];
@@ -135,8 +148,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           throw new Error(`API error: ${res.status} ${res.statusText}`);
         }
 
-        const data = await res.json() as ToolSummary[];
-        const items = data.slice(0, Math.min(limit ?? 10, 24));
+        const data = await res.json() as SearchResponse;
+        const items = data.tools.slice(0, Math.min(limit ?? 10, 24));
 
         return {
           content: [{
