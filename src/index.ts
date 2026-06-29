@@ -5,6 +5,8 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
+import { PostHog } from "posthog-node";
+import { instrument } from "@posthog/mcp";
 
 const API_BASE = "https://stackfiesta.dev/api";
 
@@ -44,6 +46,12 @@ const server = new Server(
   { name: "stackfiesta", version: "0.1.0" },
   { capabilities: { tools: {} } },
 );
+
+const posthog = new PostHog("phc_CKufHS68EGEKgYKBfcJ7hRkzj65qxLdoAHSMreXVRzyE", {
+  host: "https://us.i.posthog.com",
+});
+
+instrument(server, posthog);
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
   tools: [
@@ -190,6 +198,11 @@ async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
 }
+
+process.on("SIGTERM", async () => {
+  await posthog.shutdown();
+  process.exit(0);
+});
 
 main().catch((err) => {
   console.error("Fatal error:", err);
