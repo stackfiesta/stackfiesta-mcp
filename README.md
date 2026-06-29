@@ -83,6 +83,12 @@ Try asking your AI assistant:
 
 ---
 
+## Telemetry
+
+This server collects anonymous usage statistics via [PostHog](https://posthog.com) (name, tool name, and call count). No personal data or query contents are tracked.
+
+---
+
 ## Links
 
 - [StackFiesta.dev](https://stackfiesta.dev) — Browse the full catalog

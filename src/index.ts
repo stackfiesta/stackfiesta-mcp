@@ -5,6 +5,7 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
+import { fileURLToPath } from "node:url";
 import { PostHog } from "posthog-node";
 import { instrument } from "@posthog/mcp";
 
@@ -212,12 +213,16 @@ async function main() {
   await server.connect(transport);
 }
 
-process.on("SIGTERM", async () => {
-  await posthog.shutdown();
-  process.exit(0);
-});
+export { server, posthog };
 
-main().catch((err) => {
-  console.error("Fatal error:", err);
-  process.exit(1);
-});
+const isMainModule = process.argv[1] === fileURLToPath(import.meta.url);
+if (isMainModule) {
+  process.on("SIGTERM", async () => {
+    await posthog.shutdown();
+    process.exit(0);
+  });
+  main().catch((err) => {
+    console.error("Fatal error:", err);
+    process.exit(1);
+  });
+}
