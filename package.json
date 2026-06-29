@@ -1,0 +1,32 @@
+{
+  "name": "@stackfiesta/mcp",
+  "version": "0.1.0",
+  "description": "MCP server for StackFiesta — discover AI tools for game development",
+  "type": "module",
+  "bin": {
+    "stackfiesta-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && node -e \"fs.chmodSync('dist/index.js', 0o755)\"",
+    "start": "node dist/index.js",
+    "dev": "npx @modelcontextprotocol/inspector dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "stackfiesta",
+    "game-development",
+    "ai-tools"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}
