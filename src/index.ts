@@ -62,10 +62,8 @@ const server = new Server(
 );
 
 const posthog = new PostHog("phc_CKufHS68EGEKgYKBfcJ7hRkzj65qxLdoAHSMreXVRzyE", {
-  host: "https://us.i.posthog.com",
+  host: "https://eu.i.posthog.com",
 });
-
-instrument(server, posthog);
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
   tools: [
@@ -208,9 +206,12 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   }
 });
 
+instrument(server, posthog);
+
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
+  await posthog.shutdown();
 }
 
 export { server, posthog };
