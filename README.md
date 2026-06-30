@@ -1,42 +1,95 @@
-# StackFiesta MCP Server
+# StackFiesta MCP
 
 [![NPM](https://img.shields.io/npm/v/%40stackfiesta%2Fmcp)](https://www.npmjs.com/package/@stackfiesta/mcp)
-[![Smithery](https://img.shields.io/badge/Smithery-stackfiesta-blue)](https://smithery.ai/server/@stackfiesta/mcp)
+[![Smithery](https://img.shields.io/badge/Smithery-stackfiesta-blue)](https://smithery.ai/server/stackfiesta/gamedev)
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-**Give your AI agent access to the curated StackFiesta catalog of AI tools for game development.**
+AI tools for game development — searchable from Claude Code, Cursor, Windsurf, or any MCP-compatible agent. 100+ tools indexed by engine, task, and pricing.
 
-Your AI assistant can search tools, compare options, and find the right asset generator, MCP server, plugin, or workflow — without leaving your IDE.
+## Connect
 
----
+### Claude Code
 
-## Quick Start
+```bash
+claude mcp add stackfiesta --url https://stackfiesta.dev/mcp
+```
 
-### Via Smithery (recommended)
+### Gemini
 
-[Install from Smithery](https://smithery.ai/server/@stackfiesta/mcp)
+Via Gemini CLI:
 
-### Via npx
+```bash
+gemini config set mcpServers.stackfiesta.url https://stackfiesta.dev/mcp
+```
 
-Add to your `claude_desktop_config.json`, `cursor/mcp.json`, or `.windsurf/config.json`:
+### opencode
+
+`opencode.jsonc`:
 
 ```json
 {
   "mcpServers": {
     "stackfiesta": {
-      "command": "npx",
-      "args": ["-y", "@stackfiesta/mcp"]
+      "url": "https://stackfiesta.dev/mcp"
     }
   }
 }
 ```
 
-### Manual install
+### Cursor / Windsurf / Claude Desktop / Cline / Zed
+
+All use the same JSON config in their respective settings files:
+
+```json
+{
+  "mcpServers": {
+    "stackfiesta": {
+      "url": "https://stackfiesta.dev/mcp"
+    }
+  }
+}
+```
+
+| Client         | Config file |
+|----------------|-------------|
+| Cursor         | Settings → MCP → Add Server |
+| Windsurf       | `~/.codeium/windsurf/config.json` |
+| Claude Desktop | `claude_desktop_config.json` |
+| Cline          | `~/.config/cline/mcp_settings.json` |
+| Zed            | `~/.config/zed/settings.json` (key: `mcp_servers`) |
+| GitHub Copilot | VS Code → MCP Servers → Add URL |
+
+### Smithery (alternative install)
 
 ```bash
-npm install -g @stackfiesta/mcp
-stackfiesta-mcp
+npx @smithery/cli install stackfiesta/gamedev
 ```
+
+### Generic / any MCP client
+
+| Field     | Value                        |
+|-----------|------------------------------|
+| Endpoint  | `https://stackfiesta.dev/mcp` |
+| Transport | Streamable HTTP              |
+| Auth      | None                         |
+
+---
+
+## What you can ask
+
+> "Find AI tools for generating pixel art sprites"
+>
+> "What AI tools work with Godot?"
+>
+> "I need a free QA testing tool for my Unity game"
+>
+> "Tools for writing RPG dialogue"
+>
+> "Show me the details on Godogen"
+>
+> "Free tools for procedural level generation"
+>
+> "AI tools that export to FBX"
 
 ---
 
@@ -44,56 +97,59 @@ stackfiesta-mcp
 
 ### `find_tools`
 
-Search AI tools for game development by query and filters.
+Search the catalog. Full-text search with optional filters by engine, pricing, type, and category.
 
 **Parameters:**
 
 | Param    | Type   | Required | Description |
 |----------|--------|----------|-------------|
-| query    | string | yes      | Search query |
-| engine   | string | no       | Game engine: `unity`, `unreal`, `godot`, `bevy` |
-| pricing  | string | no       | `free`, `freemium`, `paid`, `open-source` |
-| type     | string | no       | `mcp-server`, `plugin`, `skill`, `prompt`, `api` |
-| category | string | no       | Category slug: `ai-coding`, `level-design`, `npc-ai` |
-| limit    | number | no       | Max results (default 10, max 24) |
+| `query`  | string | yes      | Full-text search query |
+| `engine` | string | no       | Game engine filter: `unity`, `unreal`, `godot`, `bevy`, etc. |
+| `pricing`| string | no       | `free`, `freemium`, `paid`, `open-source` |
+| `type`   | string | no       | `mcp-server`, `plugin`, `skill`, `prompt`, `api` |
+| `category`| string | no       | Category slug: `ai-coding`, `level-design`, `npc-ai` |
+| `limit`  | number | no       | Max results (default 10, max 24) |
 
 ### `get_tool`
 
-Get full details of a specific tool by slug.
+Full details for one tool by slug. Returns use cases, features, pricing tiers, integrations, links, FAQ.
 
 **Parameters:**
 
 | Param | Type   | Required | Description |
 |-------|--------|----------|-------------|
-| slug  | string | yes      | URL slug (e.g. `unity-mcp`) |
+| `slug` | string | yes      | URL slug (e.g. `unity-mcp`, `meshy`) |
 
 ---
 
-## Example Queries
+## Example session
 
-Try asking your AI assistant:
+**You:** "Find me AI tools for generating 2D sprites that work with Godot"
 
-> _"Find me open-source MCP servers for Unity"_
->
-> _"What AI tools are available for NPC dialogue?"_
->
-> _"Show me details about the Unity MCP tool"_
->
-> _"List free asset generation tools for Godot"_
+**Agent** calls `find_tools({ query: "2D sprite generation", engine: "godot" })` → results appear.
+
+**You:** "Show me the details on the first one"
+
+**Agent** calls `get_tool({ slug: "somestring" })` → full details with pricing, features, and links.
 
 ---
 
-## Telemetry
+## Catalog
 
-This server collects anonymous usage statistics via [PostHog](https://posthog.com) (name, tool name, and call count). No personal data or query contents are tracked.
+100+ AI tools for Unity, Unreal, Godot, GameMaker, Bevy, and more. Browse the full catalog at [stackfiesta.dev](https://stackfiesta.dev).
 
----
+## Analytics
 
-## Links
-
-- [StackFiesta.dev](https://stackfiesta.dev) — Browse the full catalog
-- [GitHub](https://github.com/stackfiesta/stackfiesta-mcp)
+Anonymous tool-call data collected via PostHog to improve the catalog. No personal data collected.
 
 ---
 
-⭐ **If this tool helps you, star the repo on GitHub!**
+## Local / self-run (optional)
+
+```bash
+npx @stackfiesta/mcp
+```
+
+## License
+
+MIT
