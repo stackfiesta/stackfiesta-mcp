@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "dev.stackfiesta/stackfiesta-mcp",
+  "description": "Discover AI tools for game development — 100+ tools indexed by engine, task, and pricing.",
+  "title": "StackFiesta",
+  "websiteUrl": "https://stackfiesta.dev",
+  "repository": {
+    "url": "https://github.com/stackfiesta/stackfiesta-mcp",
+    "source": "github"
+  },
+  "version": "0.1.2",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://stackfiesta.dev/mcp"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@stackfiesta/mcp",
+      "version": "0.1.2",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

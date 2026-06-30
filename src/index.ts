@@ -57,7 +57,7 @@ interface ToolDetail {
 }
 
 const server = new Server(
-  { name: "stackfiesta", version: "0.1.0" },
+  { name: "stackfiesta", version: "0.1.2" },
   { capabilities: { tools: {} } },
 );
 

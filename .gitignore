@@ -1,2 +1,9 @@
 node_modules
 dist
+
+# MCP Registry publishing tools
+mcp-publisher.exe
+mcp-publisher.tar.gz
+gen-key.mjs
+key.pem
+*.pem

@@ -1,6 +1,7 @@
 {
   "name": "@stackfiesta/mcp",
-  "version": "0.1.0",
+  "version": "0.1.2",
+  "mcpName": "dev.stackfiesta/stackfiesta-mcp",
   "description": "MCP server for StackFiesta — discover AI tools for game development",
   "type": "module",
   "bin": {
