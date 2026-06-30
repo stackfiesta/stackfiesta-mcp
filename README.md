@@ -1,7 +1,7 @@
 # StackFiesta MCP
 
 [![NPM](https://img.shields.io/npm/v/%40stackfiesta%2Fmcp)](https://www.npmjs.com/package/@stackfiesta/mcp)
-[![Smithery](https://img.shields.io/badge/Smithery-stackfiesta-blue)](https://smithery.ai/server/stackfiesta/gamedev)
+[![Smithery](https://img.shields.io/badge/Smithery-stackfiesta-blue)](https://smithery.ai/servers/stackfiesta/gamedev)
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 AI tools for game development — searchable from Claude Code, Cursor, Windsurf, or any MCP-compatible agent. 100+ tools indexed by engine, task, and pricing.
