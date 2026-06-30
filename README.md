@@ -14,6 +14,12 @@ AI tools for game development — searchable from Claude Code, Cursor, Windsurf,
 claude mcp add stackfiesta --url https://stackfiesta.dev/mcp
 ```
 
+### Codex CLI
+
+```bash
+codex mcp add stackfiesta --url https://stackfiesta.dev/mcp
+```
+
 ### Gemini
 
 Via Gemini CLI:
